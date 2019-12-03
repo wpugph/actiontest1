@@ -38,6 +38,7 @@ jobs:
         curl -O https://raw.githubusercontent.com/pantheon-systems/terminus-installer/master/builds/installer.phar && php installer.phar install
         # composer global require consolidation/cgr
         # cgr --stability RC pantheon-systems/terminus
+        /home/runner/work/actiontest1/actiontest1/vendor/bin/terminus self:info
         composer update
         ls web -al   
         ls web/wp -al
