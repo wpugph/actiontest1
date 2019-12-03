@@ -35,9 +35,13 @@ jobs:
         ssh-add "$SSH_DIR/id_rsa1"
         ssh-add -l
         echo "SSH PRIVATE KEY IMPORTED!!!"
+        mkdir ~/terminus
+        cd ~/terminus
         curl -O https://raw.githubusercontent.com/pantheon-systems/terminus-installer/master/builds/installer.phar && php installer.phar install || exit 0
         # composer global require consolidation/cgr
         # cgr --stability RC pantheon-systems/terminus
+        cd ~
+        ls -al
         /home/runner/work/actiontest1/actiontest1/vendor/bin/terminus self:info
         composer update
         ls web -al   
