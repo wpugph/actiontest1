@@ -25,7 +25,6 @@ jobs:
         export DEV_SITE_URL='https://dev-carltest1.pantheonsite.io/'
         export MULTIDEV_SITE_URL='https://qa1-carltest1.pantheonsite.io/'
         
-
         # setup SSH access
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server for rsync usage.\n"
         SSH_DIR="$HOME/.ssh"
@@ -33,7 +32,7 @@ jobs:
         chmod 700 "$SSH_DIR"
         touch "$SSH_DIR/id_rsa1"
         touch "$SSH_DIR/config"
-        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/$SSH_DIR/config
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > "$SSH_DIR/config"
         echo "${{ secrets.STAGING_PRIVATE_KEY }}" > "$SSH_DIR/id_rsa1"
         chmod 600 "$SSH_DIR/id_rsa1"
         chmod 600 "$SSH_DIR/config"
