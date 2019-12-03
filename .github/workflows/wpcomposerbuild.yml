@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup SSH access to Pantheon
       run: |
+        ls -al
         eval $(ssh-agent -s) #ok
         mkdir -p ~/.ssh #ok
         export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
@@ -44,7 +45,12 @@ jobs:
         cd ~
         ls -al
         /home/runner/terminus/vendor/bin/terminus self:info
-        composer update
+        /home/runner/terminus/vendor/bin/terminus auth:login --machine-token="${{ secrets.MACHINETOKEN }}"
+        /home/runner/terminus/vendor/bin/terminus auth:login --email="$PANTHEONEMAIL"
+        /home/runner/terminus/vendor/bin/terminus auth:whoami
+        echo $PROJECT_ROOT
+        cd $PROJECT_ROOT 
+        composer install
         ls web -al   
         ls web/wp -al
 
