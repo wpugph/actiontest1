@@ -38,10 +38,10 @@ jobs:
       uses: webfactory/ssh-agent@v0.1.1
       with:
           STAGING_PRIVATE_KEY: ${{ secrets.STAGING_PRIVATE_KEY }}
-      run: ssh-add -l
 
     - name: Run WP composer build
       run: |
+        ssh-add -l
         echo Add other actions to build,
         echo test, and deploy your project.
         composer update
