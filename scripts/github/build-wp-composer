@@ -3,32 +3,27 @@
 cd $PROJECT_ROOT
 composer install
 echo 'wp composer build success!!'
-# deploy plugins to pantheon
-# deploy theme to pantheon
+
+# deploy plugins and themes
+rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./web/wp-content/. --temp-dir=~/tmp/ $PANTHEONENV.$PANTHEONSITEUUID@appserver.$PANTHEONENV.$PANTHEONSITEUUID.drush.in:code/wp-content/ --exclude='*.git*' --exclude node_modules/ --exclude gulp/ --exclude source/
+
+# deploy core via rsync
+rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./web/wp/. --temp-dir=~/tmp/ $PANTHEONENV.$PANTHEONSITEUUID@appserver.$PANTHEONENV.$PANTHEONSITEUUID.drush.in:code/web/wp/ --exclude='*.git*' --exclude node_modules/ --exclude gulp/ --exclude source/
+
+# install backstop
 npm install backstopjs || exit 0
-
-backstop -v
-ls $PROJECT_ROOT/node_modules -al
-
 $PROJECT_ROOT/node_modules/backstopjs/cli/index.js -v
-
+# Backstop get reference
 echo -e "\nRunning backstop reference on ${DEV_SITE_URL}..."
 $PROJECT_ROOT/node_modules/backstopjs/cli/index.js reference --config=$PROJECT_ROOT/scripts/github/test/backstopjs/backstopConfig.js
-
-# Backstop test
+# Backstop test url
 echo -e "\nRunning backstop test on ${MULTIDEV_SITE_URL}..."
 VISUAL_REGRESSION_RESULTS=$($PROJECT_ROOT/node_modules/backstopjs/cli/index.js test --config=$PROJECT_ROOT/scripts/github/test/backstopjs/backstopConfig.js)
-
 $PROJECT_ROOT/node_modules/backstopjs/cli/index.js test --config=$PROJECT_ROOT/scripts/github/test/backstopjs/backstopConfig.js
-
 /home/runner/terminus/vendor/bin/terminus auth:whoami
-
 /home/runner/terminus/vendor/bin/terminus connection:set $PANTHEONSITENAME.$PANTHEONENV sftp
+
 rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./backstop_data/. --temp-dir=~/tmp/ $PANTHEONENV.$PANTHEONSITEUUID@appserver.$PANTHEONENV.$PANTHEONSITEUUID.drush.in:code/backstop_data/ --exclude='*.git*' --exclude node_modules/ --exclude gulp/ --exclude source/
 
-
-# echo $VISUAL_REGRESSION_RESULTS
-# execute backstopj
-# deploy assets backstopjs
-
-ls ./backstop_data -al
+echo 'View backstop report here\n'
+echo '<a href="$QA_SITE_URL/backstop_data/html_report/">View report here</a>'
