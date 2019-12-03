@@ -24,7 +24,7 @@
 	  "wpackagist-plugin/lh-hsts": "^1.24",
 	  "wpackagist-plugin/pantheon-advanced-page-cache": ">=0.3.0",
 	  "wpackagist-plugin/wp-native-php-sessions": ">=0.6.9",
-	  "wpackagist-plugin//tika-doc-pdf-indexer": ">=1.0.4",
+	  "wpackagist-plugin/tika-doc-pdf-indexer": ">=1.0.4",
 	  "wpackagist-theme/twentynineteen": "^1.2"
 	},
 	"require-dev": {
