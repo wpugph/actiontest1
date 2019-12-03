@@ -34,6 +34,12 @@ jobs:
         #    ssh-keygen -t rsa -b 4096 -C "GH-actions-ssh-deploy-key" -f "$HOME/.ssh/id_rsa" -N ""
         #fi
 
+    - uses: webfactory/ssh-agent@v0.1.1
+    - name: ssh-add 2 method
+      with:
+          ssh-private-key: ${{ secrets.STAGING_PRIVATE_KEY }}
+      run: ssh-add -l
+
     - name: Run WP composer build
       run: |
         echo Add other actions to build,
