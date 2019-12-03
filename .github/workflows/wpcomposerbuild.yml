@@ -18,9 +18,14 @@ jobs:
         export PANTHEONENV="dev"
         export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
         export PROJECT_ROOT="$(pwd)"
-        export HTDOCS="$HOME/htdocs"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
         export MACHINETOKEN="${{ secrets.MACHINETOKEN }}"
+
+        #backstop settings
+        export DEV_SITE_URL='https://dev-carltest1.pantheonsite.io/'
+        export MULTIDEV_SITE_URL='https://qa1-carltest1.pantheonsite.io/'
+        
+
         # setup SSH access
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server for rsync usage.\n"
         SSH_DIR="$HOME/.ssh"
@@ -33,8 +38,6 @@ jobs:
         ssh-add "$SSH_DIR/id_rsa1"
         ssh-add -l
         echo "SSH PRIVATE KEY IMPORTED!!!"
-
-        export DEV_SITE_URL='https://test.com'
 
         sh $PROJECT_ROOT/scripts/github/setup-terminus
         sh $PROJECT_ROOT/scripts/github/build-wp-composer
