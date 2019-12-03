@@ -17,7 +17,7 @@ jobs:
         export PROJECT_ROOT="$(pwd)"
         export HTDOCS="$HOME/htdocs"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
-        export CI_SCRIPT_OPTIONS="ci_script_options"
+        echo GITHUB_BRANCH
         export PANTHEONEMAIL="cralberto11@gmail.com"
         export PANTHEONSITENAME="carltest1"
         export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
@@ -40,13 +40,14 @@ jobs:
         curl -O https://raw.githubusercontent.com/pantheon-systems/terminus-installer/master/builds/installer.phar && php installer.phar install || exit 0
         # composer global require consolidation/cgr
         # cgr --stability RC pantheon-systems/terminus
+        npm -v
         cd ~
         ls -al
-        /home/runner/work/actiontest1/actiontest1/vendor/bin/terminus self:info
+        /home/runner/terminus/vendor/bin/terminus self:info
         composer update
         ls web -al   
         ls web/wp -al
-        npm -v
+
 
 
 
