@@ -23,12 +23,12 @@ $PROJECT_ROOT/node_modules/backstopjs/cli/index.js test --config=$PROJECT_ROOT/s
 
 /home/runner/terminus/vendor/bin/terminus auth:whoami
 
-/home/runner/terminus/vendor/bin/terminus connection:set $PANTHEONSITENAME.dev sftp
-rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./backstop_data/. --temp-dir=~/tmp/ $PANTHEONENV.$PANTHEONSITENAME@appserver.$PANTHEONENV.$PANTHEONSITENAME.drush.in:code/backstop_data/ --exclude='*.git*' --exclude node_modules/ --exclude gulp/ --exclude source/
+/home/runner/terminus/vendor/bin/terminus connection:set $PANTHEONSITENAME.$PANTHEONENV sftp
+rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./backstop_data/. --temp-dir=~/tmp/ $PANTHEONENV.$PANTHEONSITEUUID@appserver.$PANTHEONENV.$PANTHEONSITEUUID.drush.in:code/backstop_data/ --exclude='*.git*' --exclude node_modules/ --exclude gulp/ --exclude source/
 
 
 # echo $VISUAL_REGRESSION_RESULTS
 # execute backstopj
 # deploy assets backstopjs
 
-ls -al
+ls ./backstop_data -al
