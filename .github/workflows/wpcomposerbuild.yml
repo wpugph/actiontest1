@@ -22,16 +22,25 @@ jobs:
         SSH_DIR="$HOME/.ssh"
         mkdir -p "$SSH_DIR"
         chmod 700 "$SSH_DIR"
-        if [[ -n "$STAGING_PRIVATE_KEY" ]]; then
+        #if [[ -n "$STAGING_PRIVATE_KEY" ]]; then
             echo "$STAGING_PRIVATE_KEY" | tr -d '\r' > "$SSH_DIR/id_rsa"
             chmod 600 "$SSH_DIR/id_rsa"
             eval "$(ssh-agent -s)"
             ssh-add "$SSH_DIR/id_rsa"
-        else
-            ssh-keygen -t rsa -b 4096 -C "GH-actions-ssh-deploy-key" -f "$HOME/.ssh/id_rsa" -N ""
-        fi
+            echo "SSH PRIVATE KEY IMPORTED!!!"
+        #else
+        #    ssh-keygen -t rsa -b 4096 -C "GH-actions-ssh-deploy-key" -f "$HOME/.ssh/id_rsa" -N ""
+        #fi
 
     - name: Run WP composer build
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+        composer update
+        ls web -al   
+        ls web/wp -al
+
+    - name: Run WP Visual regression test
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
