@@ -9,10 +9,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Setup SSH access to Pantheon
+      run: |
+        eval $(ssh-agent -s) #ok
+        mkdir -p ~/.ssh #ok
+        'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )' #ok
+        '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+        ROOTPWD=`pwd`
+        touch /root/.ssh/idrsa
+        echo "$STAGING_PRIVATE_KEY" > /root/.ssh/idrsa
+        chmod 400 /root/.ssh/idrsa
+        ssh-add /root/.ssh/idrsa
+        ssh-add -l
+        cd $ROOTPWD
+        php composer.phar install
+        composer global require consolidation/cgr
+        cgr --stability RC pantheon-systems/terminus
+
     - name: Run a multi-line script
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
         composer update
+        ls web -al   
+        ls web/wp -al   
