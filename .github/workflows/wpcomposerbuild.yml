@@ -18,23 +18,31 @@ jobs:
         export HTDOCS="$HOME/htdocs"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
         export CI_SCRIPT_OPTIONS="ci_script_options"
+        export PANTHEONEMAIL="cralberto11@gmail.com"
+        export PANTHEONSITENAME="carltest1"
+        export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
+        export PANTHEONENV="dev"
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server.\n"
         SSH_DIR="$HOME/.ssh"
         mkdir -p "$SSH_DIR"
         chmod 700 "$SSH_DIR"
-        #if [[ -n "$STAGING_PRIVATE_KEY" ]]; then
-            touch "$SSH_DIR/id_rsa1"
-            echo "$SSH_DIR/id_rsa1"
-            echo "${{ secrets.STAGING_PRIVATE_KEY }}"
-            echo "${{ secrets.STAGING_PRIVATE_KEY }}" > "$SSH_DIR/id_rsa1"
-            chmod 600 "$SSH_DIR/id_rsa1"
-            eval "$(ssh-agent -s)"
-            ssh-add "$SSH_DIR/id_rsa1"
-            ssh-add -l
-            echo "SSH PRIVATE KEY IMPORTED!!!"
-        #else
-        #    ssh-keygen -t rsa -b 4096 -C "GH-actions-ssh-deploy-key" -f "$HOME/.ssh/id_rsa" -N ""
-        #fi
+        touch "$SSH_DIR/id_rsa1"
+        echo "$SSH_DIR/id_rsa1"
+        echo "${{ secrets.STAGING_PRIVATE_KEY }}"
+        echo "${{ secrets.STAGING_PRIVATE_KEY }}" > "$SSH_DIR/id_rsa1"
+        chmod 600 "$SSH_DIR/id_rsa1"
+        eval "$(ssh-agent -s)"
+        ssh-add "$SSH_DIR/id_rsa1"
+        ssh-add -l
+        echo "SSH PRIVATE KEY IMPORTED!!!"
+        composer global require consolidation/cgr
+        cgr --stability RC pantheon-systems/terminus
+        composer update
+        ls web -al   
+        ls web/wp -al
+        npm -v
+
+
 
     # - name: ssh-add 2 method
     #   uses: webfactory/ssh-agent@v0.1.1
