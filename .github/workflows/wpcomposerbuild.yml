@@ -21,7 +21,8 @@ jobs:
         export PROJECT_ROOT="$(pwd)"
         export HTDOCS="$HOME/htdocs"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
-        echo $GITHUB_BRANCH
+        export MACHINETOKEN="${{ secrets.MACHINETOKEN }}"
+        echo $GITHUB_BRANCH #ok
 
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server.\n"
         SSH_DIR="$HOME/.ssh"
