@@ -2,4 +2,7 @@
 
 cd $PROJECT_ROOT
 composer install
-npm install -g backstopjs
+echo 'wp composer build success!!'
+ls web/ -al
+npm install backstopjs || exit 0
+ls -al
