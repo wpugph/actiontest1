@@ -1,8 +1,8 @@
 // Stash dev URL, removing any trailing slash
-const devURL = process.env.DEV_SITE_URL.replace(/\/$/, "");
+const devURL = process.env.REFERENCE_SITE_URL.replace(/\/$/, "");
 
 // Stash multidev URL, removing any trailing slash
-const multidevURL = process.env.MULTIDEV_SITE_URL.replace(/\/$/, "");
+const multidevURL = process.env.TEST_SITE_URL.replace(/\/$/, "");
 
 const pathsToTest = {
     'Homepage': '/',

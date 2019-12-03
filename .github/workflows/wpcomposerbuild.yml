@@ -13,17 +13,22 @@ jobs:
       run: |
         # define variables
         export PANTHEONEMAIL="cralberto11@gmail.com"
-        export PANTHEONSITENAME="carltest1"
-        export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
-        export PANTHEONENV="qa1"
         export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
         export PROJECT_ROOT="$(pwd)"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
         export MACHINETOKEN="${{ secrets.MACHINETOKEN }}"
 
         #backstop settings
-        export DEV_SITE_URL='https://dev-carltest1.pantheonsite.io/'
-        export MULTIDEV_SITE_URL='https://qa1-carltest1.pantheonsite.io/'
+        export REFERENCE_SITE_URL='https://live-carltest1.pantheonsite.io/'
+        export PANTHEONSITENAME="carltest1"
+        export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
+        export PANTHEONENV="qa1"
+        export TEST_SITE_URL='https://qa1-carltest1.pantheonsite.io/'
+        # backstop assets are uploaded tp
+        # export PANTHEONSITENAME="carltest1"
+        # export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
+        # export PANTHEONENV="qa1"
+        export QA_SITE_URL='https://qa1-carltest1.pantheonsite.io/' 
         
         # setup SSH access
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server for rsync usage.\n"
@@ -43,29 +48,3 @@ jobs:
 
         sh $PROJECT_ROOT/scripts/github/setup-terminus
         sh $PROJECT_ROOT/scripts/github/build-wp-composer
-
-    # - name: ssh-add 2 method
-    #   uses: webfactory/ssh-agent@v0.1.1
-    #   with:
-    #       STAGING_PRIVATE_KEY: ${{ secrets.STAGING_PRIVATE_KEY }}
-
-    # - name: Run WP composer build
-    #   run: |
-    #     ssh-add -l
-    #     echo Add other actions to build,
-    #     echo test, and deploy your project.
-    #     composer update
-    #     ls web -al   
-    #     ls web/wp -al
-
-    # - name: Run WP Visual regression test
-    #   run: |
-    #     echo Add other actions to build,
-    #     echo test, and deploy your project.
-    #     composer update
-    #     ls web -al   
-    #     ls web/wp -al
-    #     ls -al
-    #     npm -v
-    #     npm install -g backstopjs
-
