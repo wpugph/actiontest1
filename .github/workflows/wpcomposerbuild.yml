@@ -51,14 +51,14 @@ jobs:
     #     ls web -al   
     #     ls web/wp -al
 
-    - name: Run WP Visual regression test
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
-        composer update
-        ls web -al   
-        ls web/wp -al
-        ls -al
-        npm -v
-        npm install -g backstopjs
+    # - name: Run WP Visual regression test
+    #   run: |
+    #     echo Add other actions to build,
+    #     echo test, and deploy your project.
+    #     composer update
+    #     ls web -al   
+    #     ls web/wp -al
+    #     ls -al
+    #     npm -v
+    #     npm install -g backstopjs
 
