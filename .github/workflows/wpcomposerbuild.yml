@@ -23,6 +23,7 @@ jobs:
         export PANTHEONSITENAME="carltest1"
         export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
         export PANTHEONENV="dev"
+        export STAGING_PRIVATE_KEY=${{ secrets.STAGING_PRIVATE_KEY }}
 
         sh $PROJECT_ROOT/scripts/github/setup-ssh
 
