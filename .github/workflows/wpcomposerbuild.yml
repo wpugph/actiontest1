@@ -24,7 +24,7 @@ jobs:
         export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
         export PANTHEONENV="dev"
 
-        sh $PROJECT_ROOT/setup-ssh
+        sh $PROJECT_ROOT/scripts/github/setup-ssh
 
         mkdir ~/terminus
         cd ~/terminus
@@ -43,6 +43,7 @@ jobs:
         composer install
         ls web -al   
         ls web/wp -al
+        npm install -g backstopjs
 
 
 
@@ -52,14 +53,14 @@ jobs:
     #   with:
     #       STAGING_PRIVATE_KEY: ${{ secrets.STAGING_PRIVATE_KEY }}
 
-    - name: Run WP composer build
-      run: |
-        ssh-add -l
-        echo Add other actions to build,
-        echo test, and deploy your project.
-        composer update
-        ls web -al   
-        ls web/wp -al
+    # - name: Run WP composer build
+    #   run: |
+    #     ssh-add -l
+    #     echo Add other actions to build,
+    #     echo test, and deploy your project.
+    #     composer update
+    #     ls web -al   
+    #     ls web/wp -al
 
     - name: Run WP Visual regression test
       run: |
@@ -67,4 +68,8 @@ jobs:
         echo test, and deploy your project.
         composer update
         ls web -al   
-        ls web/wp -al   
+        ls web/wp -al
+        ls -al
+        npm -v
+        npm install -g backstopjs
+
