@@ -15,7 +15,7 @@ jobs:
         export PANTHEONEMAIL="cralberto11@gmail.com"
         export PANTHEONSITENAME="carltest1"
         export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
-        export PANTHEONENV="dev"
+        export PANTHEONENV="qa1"
         export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
         export PROJECT_ROOT="$(pwd)"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
