@@ -18,7 +18,6 @@ jobs:
         export HTDOCS="$HOME/htdocs"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
         export CI_SCRIPT_OPTIONS="ci_script_options"
-        hostname=$(cat "$hosts_file" | shyaml get-value "$GITHUB_BRANCH.hostname")
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server.\n"
         SSH_DIR="$HOME/.ssh"
         mkdir -p "$SSH_DIR"
