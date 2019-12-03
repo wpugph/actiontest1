@@ -25,7 +25,7 @@ jobs:
         #if [[ -n "$STAGING_PRIVATE_KEY" ]]; then
             touch "$SSH_DIR/id_rsa1"
             echo "$SSH_DIR/id_rsa1"
-            echo "$STAGING_PRIVATE_KEY" > "$SSH_DIR/id_rsa1"
+            echo "${{ secrets.STAGING_PRIVATE_KEY }}" > "$SSH_DIR/id_rsa1"
             chmod 600 "$SSH_DIR/id_rsa1"
             eval "$(ssh-agent -s)"
             ssh-add "$SSH_DIR/id_rsa1"
@@ -34,10 +34,10 @@ jobs:
         #    ssh-keygen -t rsa -b 4096 -C "GH-actions-ssh-deploy-key" -f "$HOME/.ssh/id_rsa" -N ""
         #fi
 
-    - uses: webfactory/ssh-agent@v0.1.1
     - name: ssh-add 2 method
+      uses: webfactory/ssh-agent@v0.1.1
       with:
-          ssh-private-key: ${{ secrets.STAGING_PRIVATE_KEY }}
+          STAGING_PRIVATE_KEY: ${{ secrets.STAGING_PRIVATE_KEY }}
       run: ssh-add -l
 
     - name: Run WP composer build
