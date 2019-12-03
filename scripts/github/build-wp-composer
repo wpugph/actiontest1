@@ -5,8 +5,12 @@ composer install
 echo 'wp composer build success!!'
 # deploy plugins to pantheon
 # deploy theme to pantheon
-ls web/ -al
 npm install backstopjs || exit 0
+
+backstop -v
+ls $PROJECT_ROOT/node_modules -al
+
+$PROJECT_ROOT/node_modules/backstopjs/cli/index.js -v
 
 echo -e "\nRunning backstop reference on ${DEV_SITE_URL}..."
 backstop reference --config=$PROJECT_ROOT/scripts/github/test/backstopjs/backstopConfig.js
