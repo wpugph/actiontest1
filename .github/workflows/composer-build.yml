@@ -11,24 +11,23 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup SSH access to Pantheon
       run: |
-        # define variables
+        # define settings here
         export PANTHEONEMAIL="cralberto11@gmail.com"
+        export REFERENCE_SITE_URL='https://live-carltest1.pantheonsite.io/'
+        export PANTHEONSITENAME="carltest1"
+        export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
+        export PANTHEONENV="dev"
+        export TEST_SITE_URL='https://dev-carltest1.pantheonsite.io/'
+        export QA_PANTHEONENV="qa1"
+        export QA_SITE_URL='https://qa1-carltest1.pantheonsite.io/' 
+        # add machine token & sshkey in secret variables
+        # further configure scripts/github/test/backstopjs/backstopConfig.js
+
+        # environment ariables
         export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
         export PROJECT_ROOT="$(pwd)"
         export GITHUB_BRANCH=${GITHUB_REF##*heads/}
         export MACHINETOKEN="${{ secrets.MACHINETOKEN }}"
-
-        #backstop settings
-        export REFERENCE_SITE_URL='https://live-carltest1.pantheonsite.io/'
-        export PANTHEONSITENAME="carltest1"
-        export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
-        export PANTHEONENV="qa1"
-        export TEST_SITE_URL='https://qa1-carltest1.pantheonsite.io/'
-        # backstop assets are uploaded tp
-        # export PANTHEONSITENAME="carltest1"
-        # export PANTHEONSITEUUID="01507cf9-d5e7-460d-83ee-5587a03e7d9a"
-        # export PANTHEONENV="qa1"
-        export QA_SITE_URL='https://qa1-carltest1.pantheonsite.io/' 
         
         # setup SSH access
         printf "[\e[0;34mNOTICE\e[0m] Setting up SSH access to server for rsync usage.\n"
@@ -48,3 +47,11 @@ jobs:
 
         sh $PROJECT_ROOT/scripts/github/setup-terminus
         sh $PROJECT_ROOT/scripts/github/build-wp-composer
+
+        #https://admin.dashboard.pantheon.io/sites/a22f4a40-0025-4878-ae51-babe2e978c49
+        #http://dev-gh-action1.pantheonsite.io/
+        # https://pantheon.io/docs/nested-docroot convert
+        # update with woocommerce
+        # pattern with https://github.com/pantheon-systems/example-wordpress-composer
+        # create tutorials, automating your WP builds in GitHub
+        # convert ph_tech to nested docroot
